@@ -124,6 +124,15 @@ int main(int argc, char **argv) {
     }
   }
 
+  // Execute Init-Script
+  if (access(script_path, F_OK) == 0) {
+    int ret = system(script_path);
+    if (ret != 0) {
+      printf("Child-process returned non-zero exitcode: %d\n", ret);
+      goto mbinit_err_exit;
+    }
+  }
+
   goto mbinit_exit;
 mbinit_err_exit:
   result = 1;
