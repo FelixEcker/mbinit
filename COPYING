@@ -1,0 +1,6 @@
+mbinit is licensed under the ISC-License, see the LICENSE file in the
+git repositories root for a copy of the license.
+
+mbinit uses a part of fsutils from the butter utility library. This library
+is licensed under the WTFPL v2. View the sources of the library for a copy
+of the license.
