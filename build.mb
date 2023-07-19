@@ -7,7 +7,7 @@ sector .config
 
     files 'fsutils.c:main.c'
 
-    std_flags     '-Wall -Isrc/ -c -o'
+    std_flags     '-Wall -Isrc/ -I. -c -o'
     debug_flags   '-ggdb'
     release_flags '-O3'
 

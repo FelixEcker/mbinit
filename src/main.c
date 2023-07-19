@@ -17,9 +17,7 @@
 
 #include <fsutils.h>
 
-#define TEMPLATE_HOME "./build_templates/"
-#define BUILD_FILE_EXTENSION ".mb"
-#define INIT_SCRIPT_EXTENSION ".init"
+#include <mbinit_config.h>
 
 #define MBINIT_VESRION "1.0.0"
 
