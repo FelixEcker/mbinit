@@ -21,7 +21,7 @@
 #define BUILD_FILE_EXTENSION ".mb"
 #define INIT_SCRIPT_EXTENSION ".init"
 
-#define MBINIT_VESRION "0.0.0"
+#define MBINIT_VESRION "1.0.0"
 
 /*****************************************************************************/
 /*                 argp.h argument parsing functionality                     */
@@ -126,6 +126,7 @@ int main(int argc, char **argv) {
 
   // Execute Init-Script
   if (access(script_path, F_OK) == 0) {
+    // Again, fully aware of the risks, still do not care :)
     int ret = system(script_path);
     if (ret != 0) {
       printf("Child-process returned non-zero exitcode: %d\n", ret);
