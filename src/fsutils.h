@@ -30,11 +30,20 @@
 #ifndef BUTTER_FSUTILS_H
 #define BUTTER_FSUTILS_H
 
+extern const char pathsep[];
+
 /* Copies file at path from to file to.
  * Returns:
  *   0       - Successfully copied file
  *   nonzero - Failed to copy file, copy of errno is returned
  */
 int copy_file(const char *to, const char *from);
+
+/* Makes a relative path into an absolute one.
+ *
+ * NOTE: Only works if the relative path is in the context of the
+ * current working directory.
+ */
+char *make_path_abs(char *path);
 
 #endif

@@ -124,6 +124,12 @@ int main(int argc, char **argv) {
 
   // Execute Init-Script
   if (access(script_path, F_OK) == 0) {
+    char *ascript_path = make_path_abs(script_path);
+    free(script_path);
+    script_path = ascript_path;
+
+    chdir(args.name);
+    
     // Again, fully aware of the risks, still do not care :)
     int ret = system(script_path);
     if (ret != 0) {

@@ -29,9 +29,14 @@
 
 #include <fsutils.h>
 
+#include <stdlib.h>
+#include <string.h>
+
 #include <fcntl.h>
 #include <unistd.h>
 #include <errno.h>
+
+const char pathsep[] = "/";
 
 int copy_file(const char *to, const char *from) {
     int fd_to, fd_from;
@@ -86,3 +91,23 @@ int copy_file(const char *to, const char *from) {
     return -1;
 }
 
+char *make_path_abs(char *path) {
+  if (path == NULL) return NULL;
+  if (path[0] == '/') return strdup(path);
+
+
+  char *cwd = malloc(512);
+  getcwd(cwd, 512);
+
+  char *npath = malloc(strlen(cwd) + strlen(path) + 2);
+  int offs = 0;
+  
+  memcpy(npath, cwd, strlen(cwd));
+  offs += strlen(cwd);
+
+  memcpy(npath + offs, pathsep, 1);
+  offs++;
+
+  strcpy(npath + offs, path);
+  return npath;
+}
