@@ -109,5 +109,7 @@ char *make_path_abs(char *path) {
   offs++;
 
   strcpy(npath + offs, path);
+  
+  free(cwd);
   return npath;
 }
