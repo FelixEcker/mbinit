@@ -12,6 +12,7 @@
 #include <string.h>
 #include <argp.h>
 
+#include <sys/stat.h>
 #include <unistd.h>
 
 #define TEMPLATE_HOME "./build_templates/"
@@ -99,6 +100,12 @@ int main(int argc, char **argv) {
     goto mbinit_err_exit;
   }
 
+  if (mkdir(args.name, S_IRUSR | S_IWUSR | S_IXUSR) != 0) {
+    printf("Error creating project directory!\n");
+    goto mbinit_err_exit;
+  }
+
+  goto mbinit_exit;
 mbinit_err_exit:
   result = 1;
 mbinit_exit:
