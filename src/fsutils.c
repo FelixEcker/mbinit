@@ -27,7 +27,7 @@
  * http://www.wtfpl.net/ for more details. 
  */
 
-#include <butter/fsutils.h>
+#include <fsutils.h>
 
 #include <fcntl.h>
 #include <unistd.h>

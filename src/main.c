@@ -15,6 +15,8 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include <fsutils.h>
+
 #define TEMPLATE_HOME "./build_templates/"
 #define BUILD_FILE_EXTENSION ".mb"
 #define INIT_SCRIPT_EXTENSION ".init"
@@ -74,7 +76,7 @@ int main(int argc, char **argv) {
   }
 
   if (access(args.name, F_OK) == 0) {
-    printf("Cannot create project: Directory already exists!");
+    printf("Cannot create project: Directory already exists!\n");
     return 1;
   }
 
@@ -91,6 +93,9 @@ int main(int argc, char **argv) {
   char *build_path  = malloc(bsize+strlen(build_extension));
   char *script_path = malloc(bsize+strlen(init_extension));
 
+  /* NOTE: I am aware of the security related bugs of sprintf, however
+   * i simply choose to not give a fuck :)
+   */
   sprintf(build_path, "%s%s%s", template_home, args.template, build_extension);
   sprintf(script_path, "%s%s%s", template_home, args.template, init_extension);
   
@@ -103,6 +108,20 @@ int main(int argc, char **argv) {
   if (mkdir(args.name, S_IRUSR | S_IWUSR | S_IXUSR) != 0) {
     printf("Error creating project directory!\n");
     goto mbinit_err_exit;
+  }
+
+  // Copy buildfile if exists
+  if (access(build_path, F_OK) == 0) {
+    char *fdest = malloc(strlen(args.name) + strlen(args.template) 
+                       + strlen(build_extension) + 2);
+    sprintf(fdest, "%s/%s%s", args.name, args.template, build_extension);
+
+    int cpyres = copy_file(fdest, build_path);
+    free(fdest);
+    if (cpyres != 0) {
+      printf("Error copying buildfile, errno = %d\n", errno);
+      goto mbinit_err_exit;
+    }
   }
 
   goto mbinit_exit;

@@ -5,10 +5,9 @@ sector .config
     src 'src/'
     out 'out/'
 
-    srcs  'main.c'
-    files '$(srcs)'
+    files 'fsutils.c:main.c'
 
-    std_flags     '-Wall -c -o'
+    std_flags     '-Wall -Isrc/ -c -o'
     debug_flags   '-ggdb'
     release_flags '-O3'
 
