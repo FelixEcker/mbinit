@@ -1,15 +1,15 @@
 sector .config
-  mariebuild:
-    bin_name 'mbinit'
+  fields mariebuild:
+    str bin_name 'mbinit'
 
-    src 'src/'
-    out 'out/'
+    str src 'src/'
+    str out 'out/'
 
-    files 'fsutils.c:main.c'
+    list files 'fsutils.c:main.c'
 
-    std_flags     '-Wall -Isrc/ -I. -c -o'
-    debug_flags   '-ggdb'
-    release_flags '-O3'
+    str std_flags     '-Wall -Isrc/ -I. -c -o'
+    str debug_flags   '-ggdb'
+    str release_flags '-O3'
 
-    comp_cmd     'gcc $(mode_flags) $(std_flags) out/$(file).o src/$(file)'
-    finalize_cmd 'gcc $(mode_flags) out/$(files).o -o $(bin_name)'
+    str comp_cmd     'gcc $(mode_flags) $(std_flags) out/$(file).o src/$(file)'
+    str finalize_cmd 'gcc $(mode_flags) out/$(files).o -o $(bin_name)'
