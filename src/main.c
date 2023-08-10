@@ -110,9 +110,10 @@ int main(int argc, char **argv) {
 
   // Copy buildfile if exists
   if (access(build_path, F_OK) == 0) {
-    char *fdest = malloc(strlen(args.name) + strlen(args.template) 
+    char fname_build[] = "build";
+    char *fdest = malloc(strlen(args.name) + strlen(fname_build) 
                        + strlen(build_extension) + 2);
-    sprintf(fdest, "%s/%s%s", args.name, args.template, build_extension);
+    sprintf(fdest, "%s/%s%s", args.name, fname_build, build_extension);
 
     int cpyres = copy_file(fdest, build_path);
     free(fdest);
